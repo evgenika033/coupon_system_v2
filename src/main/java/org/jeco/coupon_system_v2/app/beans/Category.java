@@ -1,0 +1,6 @@
+package org.jeco.coupon_system_v2.app.beans;
+
+public enum Category {
+	ACCESSORIES, AUTOMOTIVE, BABY, BEAUTY, DEFAULT, ELECTRIC, ELECTRONICS, FOOD, GAMES, HEALTH, HOME, KITCHEN, MEDIA,
+	MOVIES, MUSIC, SPORT, TOYS, TRAVEL
+}
