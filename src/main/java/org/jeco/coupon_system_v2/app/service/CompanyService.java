@@ -1,6 +1,14 @@
 package org.jeco.coupon_system_v2.app.service;
 
-import org.jeco.coupon_system_v2.app.beans.Company;
+import org.springframework.stereotype.Service;
 
-public interface CompanyService extends ICRUD<Company>{
+@Service
+public class CompanyService extends ClientService {
+
+
+
+    @Override
+    public boolean login(String email, String password) {
+        return false;
+    }
 }

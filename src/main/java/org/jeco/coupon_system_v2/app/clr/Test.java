@@ -37,7 +37,7 @@ public class Test implements CommandLineRunner {
         Coupon coupon= Coupon.builder()
                 .amount(2)
                 .category(Category.ACCESSORIES)
-                .company(company)
+                .company(1)
                 .description("des")
                 .image("image")
                 .price(2.2)
@@ -47,7 +47,7 @@ public class Test implements CommandLineRunner {
                 .build();
 
 
-       //companyRepository.save(company);
+       companyRepository.save(company);
         customerRepository.save(customer);
         customerRepository.findAll().forEach(System.out::println);
 

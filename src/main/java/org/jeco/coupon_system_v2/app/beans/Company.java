@@ -3,6 +3,7 @@ package org.jeco.coupon_system_v2.app.beans;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @NoArgsConstructor
@@ -18,8 +19,9 @@ public class Company {
 	private String email;
 	private String password;
 	@Singular
+	//@OneToMany(cascade = CascadeType.ALL,mappedBy = "company")
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Coupon> coupons;
+	private List<Coupon> coupons=new ArrayList<>();
 
 
 

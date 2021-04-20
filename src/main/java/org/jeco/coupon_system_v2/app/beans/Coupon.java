@@ -17,8 +17,9 @@ public class Coupon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Company company;
+	//@ManyToOne(cascade = CascadeType.ALL)
+	//@JoinColumn(name="company_id")
+	private int company;
 
 	@Column(name = "category_id")
 	@Enumerated(EnumType.ORDINAL)

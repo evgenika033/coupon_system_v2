@@ -3,6 +3,7 @@ package org.jeco.coupon_system_v2.app.beans;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @NoArgsConstructor
@@ -20,8 +21,8 @@ public class Customer {
 	private String password;
 	@Singular
 	@ManyToMany()
-	@JoinTable(name = "customer_vs_coupons",joinColumns = @JoinColumn(name = "costomer_id"),inverseJoinColumns = @JoinColumn(name = "coupon_id"))
-	private List<Coupon> coupons;
+	//@JoinTable(name = "customer_vs_coupons",joinColumns = @JoinColumn(name = "costomer_id"),inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+	private List<Coupon> coupons=new ArrayList<>();
 
 
 
