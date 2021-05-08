@@ -21,7 +21,7 @@ public class Customer {
 	private String password;
 	@Singular
 	@ManyToMany()
-	//@JoinTable(name = "customer_vs_coupons",joinColumns = @JoinColumn(name = "costomer_id"),inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+	//@JoinTable(name = "customer_vs_coupons",joinColumns = @JoinColumn(name = "customer_id"),inverseJoinColumns = @JoinColumn(name = "coupon_id"))
 	private List<Coupon> coupons=new ArrayList<>();
 
 

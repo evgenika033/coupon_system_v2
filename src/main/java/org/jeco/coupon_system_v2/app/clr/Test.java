@@ -21,20 +21,23 @@ public class Test implements CommandLineRunner {
     private final CompanyRepository companyRepository;
     private final CustomerRepository customerRepository;
     private final CouponRepository couponRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        Company company=Company.builder()
+
+
+        Company company = Company.builder()
                 .email("Test@test")
                 .name("Test")
                 .password("Test")
                 .build();
-        Customer customer=Customer.builder()
+        Customer customer = Customer.builder()
                 .email("Test@customer")
                 .password("123456")
                 .firstName("Adam")
                 .lastName("Kravi")
                 .build();
-        Coupon coupon= Coupon.builder()
+        Coupon coupon = Coupon.builder()
                 .amount(2)
                 .category(Category.ACCESSORIES)
                 .company(1)
@@ -42,17 +45,34 @@ public class Test implements CommandLineRunner {
                 .image("image")
                 .price(2.2)
                 .title("Title")
-                .startDate(LocalDate.of(2021,03,18))
-                .endDate(LocalDate.of(2021,07,18))
+                .startDate(LocalDate.of(2021, 03, 18))
+                .endDate(LocalDate.of(2021, 07, 18))
+                .build();
+        Coupon coupon2 = Coupon.builder()
+                .amount(2)
+                .category(Category.AUTOMOTIVE)
+                .company(2)
+                .description("des1")
+                .image("image1")
+                .price(2.5)
+                .title("Title1")
+                .startDate(LocalDate.of(2021, 03, 18))
+                .endDate(LocalDate.of(2021, 07, 18))
                 .build();
 
 
-       companyRepository.save(company);
+        companyRepository.save(company);
         customerRepository.save(customer);
         customerRepository.findAll().forEach(System.out::println);
-
+        couponRepository.save(coupon2);
         couponRepository.save(coupon);
         couponRepository.findAll().forEach(System.out::println);
         companyRepository.findAll().forEach(System.out::println);
+        System.out.println("start update customer ");
+        int result= customerRepository.countOfOtherCustomerByEmail(2,"Test@customer");
+        System.out.println("result "+result);
+
+
+
     }
 }
