@@ -11,11 +11,10 @@ import org.jeco.coupon_system_v2.app.service.AdminService;
 import org.jeco.coupon_system_v2.app.service.CompanyService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 @Order(2)
 public class Test2 implements CommandLineRunner {

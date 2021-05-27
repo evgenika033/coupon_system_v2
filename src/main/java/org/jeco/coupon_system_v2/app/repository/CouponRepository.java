@@ -1,10 +1,11 @@
 package org.jeco.coupon_system_v2.app.repository;
 
 import org.jeco.coupon_system_v2.app.beans.Category;
-import org.jeco.coupon_system_v2.app.beans.Company;
 import org.jeco.coupon_system_v2.app.beans.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,15 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
 
     boolean existsByCompanyAndTitleAndIdIsNot(int company, String title, int id);
 
+    @Query(value = "select `coupons_id` from customers_coupons where `customers_id` = :customerID", nativeQuery = true)
+    List<Integer> getCustomerCoupons(int customerID);
 
+    @Query(value = "select `customers_id` from customers_coupons where `coupons_id` = :couponID", nativeQuery = true)
+    List<Integer> getPurchaseCouponByCouponID(int couponID);
+
+    @Query(value="DELETE FROM `customers_coupons` WHERE `customers_id`= :customerID and `coupons_id` = :couponID", nativeQuery = true)
+    @Transactional
+    @Modifying
+    void deletePurchaseCoupon(int customerID, int couponID);
 
 }

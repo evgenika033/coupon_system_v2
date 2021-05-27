@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class CustomerService extends ClientService {
     private int customerID;
+
     public CustomerService() {
     }
 
@@ -20,10 +21,12 @@ public class CustomerService extends ClientService {
     public void purchaseCoupon(Coupon coupon){
 
     }
-    public List<Coupon> getCustomerCoupons(){
+//    public List<Coupon> getCustomerCoupons(){
+//
+//        return customerRepository.findOne(customerID)
+//
+//    }
 
-        return null;
-    }
     public List<Coupon> getCustomerCoupons(Category category){
 
         return null;
