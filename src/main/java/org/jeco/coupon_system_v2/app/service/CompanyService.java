@@ -66,9 +66,18 @@ public class CompanyService extends ClientService {
     }
 
     public void deleteCoupon(int couponID) {
-        // TODO: delete coupon history
+        // delete coupon purchase  history
+        deleteCouponHistory(couponID);
+        //delete coupon
         couponRepository.deleteById(couponID);
 
+
+    }
+    // delete coupon purchase  history
+    private void deleteCouponHistory( int couponID){
+        couponRepository.getPurchaseCouponByCouponID(couponID).forEach(cust->{
+            couponRepository.deletePurchaseCoupon(cust,couponID);
+        });
     }
 
     public List<Coupon> getCompanyCoupons() {
