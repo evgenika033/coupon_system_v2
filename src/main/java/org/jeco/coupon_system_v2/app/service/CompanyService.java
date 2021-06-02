@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.jeco.coupon_system_v2.app.beans.Category;
 import org.jeco.coupon_system_v2.app.beans.Company;
 import org.jeco.coupon_system_v2.app.beans.Coupon;
+import org.jeco.coupon_system_v2.app.exception.CouponException;
+import org.jeco.coupon_system_v2.app.exception.LoginException;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +22,18 @@ public class CompanyService extends ClientService {
 
 
     @Override
-    public boolean login(String email, String password) {
-        return false;
+    public boolean login(String email, String password) throws LoginException {
+        if(companyRepository.existsByEmailAndPassword(email, password)){
+          setCompanyId(companyRepository.getCompanyByEmailAndPassword(email, password).getId());
+            return true;
+        }
+        throw new LoginException("login exception: login failed");
+
     }
 
-    public void addCoupon(Coupon coupon) {
+
+
+    public void addCoupon(Coupon coupon) throws CouponException {
         // testing that company not null
         // Testing the coupon title not the same
         // Coupon title  can be the same in different company
@@ -31,8 +41,11 @@ public class CompanyService extends ClientService {
             couponRepository.save(coupon);
             System.out.println("coupon added " + coupon);
             return;
-        }
 
+
+        }
+        System.out.println("coupon not added " + coupon);
+        throw new CouponException("add coupon Exception: coupon is not valid ");
 
     }
 
@@ -47,7 +60,7 @@ public class CompanyService extends ClientService {
             System.out.println("coupon updated " + coupon);
             return;
         }
-        System.err.println("coupon not updated " + coupon);
+        System.out.println("coupon not updated " + coupon);
     }
 
     // testing that coupon not null
@@ -65,12 +78,19 @@ public class CompanyService extends ClientService {
         return false;
     }
 
-    public void deleteCoupon(int couponID) {
-        // delete coupon purchase  history
-        deleteCouponHistory(couponID);
-        //delete coupon
-        couponRepository.deleteById(couponID);
+    public Coupon getOneCoupon(int couponId) throws CouponException {
+        return couponRepository.findById(couponId).orElseThrow(()->new CouponException("get coupon exception: coupon id not found"));
+    }
 
+    public void deleteCoupon(int couponID) throws CouponException {
+        try {
+            // delete coupon purchase  history
+            deleteCouponHistory(couponID);
+            //delete coupon
+            couponRepository.deleteById(couponID);
+        }catch (EmptyResultDataAccessException e){
+            throw new CouponException("delete coupon exception: coupon id not found");
+        }
 
     }
     // delete coupon purchase  history

@@ -6,6 +6,7 @@ import org.jeco.coupon_system_v2.app.beans.Category;
 import org.jeco.coupon_system_v2.app.beans.Company;
 import org.jeco.coupon_system_v2.app.beans.Coupon;
 import org.jeco.coupon_system_v2.app.beans.Customer;
+import org.jeco.coupon_system_v2.app.exception.CompanyException;
 import org.jeco.coupon_system_v2.app.repository.CouponRepository;
 import org.jeco.coupon_system_v2.app.service.AdminService;
 import org.jeco.coupon_system_v2.app.service.CompanyService;
@@ -67,7 +68,12 @@ public class Test2 implements CommandLineRunner {
         adminService.addCompany(company);
 
         //   companyRepository.findAll().forEach(System.out::println);
-        Company c1 = adminService.getOneCompany(2);
+        Company c1 = null;
+        try {
+            c1 = adminService.getOneCompany(2);
+        } catch (CompanyException e) {
+            System.out.println(e);
+        }
         c1.setEmail("Test@test");
         adminService.updateCompany(c1);
 

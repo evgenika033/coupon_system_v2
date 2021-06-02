@@ -21,8 +21,7 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     boolean existsByTitle(String title);
 
     /**
-     * get count of other coupon by title
-     * for check existing coupons with the same name and other id
+     * for check existing company coupons with the same title and other id
      * @param company
      * @param title
      * @param id

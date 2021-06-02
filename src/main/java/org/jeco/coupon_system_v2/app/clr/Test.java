@@ -68,9 +68,8 @@ public class Test implements CommandLineRunner {
         couponRepository.findAll().forEach(System.out::println);
         companyRepository.findAll().forEach(System.out::println);
         System.out.println("start update customer ");
-        int result= customerRepository.countOfOtherCustomerByEmail(2,"Test@customer");
-        System.out.println("result "+result);
 
+        System.out.println("result " + customerRepository.existsByEmailAndIdIsNot("Test@customer", 2));
 
 
     }
