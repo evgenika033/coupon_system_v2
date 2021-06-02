@@ -8,6 +8,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     /**
      * needs for add new company
+     * @param name
      * @param email
      * @return
      */

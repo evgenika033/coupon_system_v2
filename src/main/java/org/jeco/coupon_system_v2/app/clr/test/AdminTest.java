@@ -154,6 +154,7 @@ public class AdminTest implements CommandLineRunner {
             company.setId(1);
             adminService.getOneCompany(1);
         } catch (Exception e) {
+            //noinspection ThrowablePrintedToSystemOut
             System.out.println(e);
         }
         System.out.println("\r\nget all companies");

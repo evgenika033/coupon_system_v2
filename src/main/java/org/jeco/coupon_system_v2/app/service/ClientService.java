@@ -18,6 +18,6 @@ public abstract class ClientService {
     public ClientService() {
     }
 
-    public abstract boolean login(String email, String password) throws LoginException;
+    abstract boolean login(String email, String password) throws LoginException;
 
 }

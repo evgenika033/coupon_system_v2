@@ -22,7 +22,7 @@ public class DataLoader implements CommandLineRunner {
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         //add company
         companyRepository.save(Company.builder().name("Amedei").email("Amedei@company.com").password("123456").build());
         companyRepository.save(Company.builder().name("Angel Bakeries").email("Angel.Bakeries@company.com").password("123456").build());

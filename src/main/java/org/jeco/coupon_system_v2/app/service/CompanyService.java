@@ -1,6 +1,7 @@
 package org.jeco.coupon_system_v2.app.service;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.jeco.coupon_system_v2.app.beans.Category;
 import org.jeco.coupon_system_v2.app.beans.Company;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @Service
 @Scope("prototype")
@@ -69,13 +71,10 @@ public class CompanyService extends ClientService {
     // can not update company id: coupon.comp==companyId
     // check for title in other coupons on current company
     private boolean isValidUpdateCoupon(Coupon coupon) {
-        if (coupon != null && coupon.getCompany() > 0 && coupon.getTitle() != null
+        return coupon != null && coupon.getCompany() > 0 && coupon.getTitle() != null
                 && couponRepository.existsById(coupon.getId())
                 && coupon.getCompany() == companyId
-                && !couponRepository.existsByCompanyAndTitleAndIdIsNot(coupon.getCompany(), coupon.getTitle(), coupon.getId())) {
-            return true;
-        }
-        return false;
+                && !couponRepository.existsByCompanyAndTitleAndIdIsNot(coupon.getCompany(), coupon.getTitle(), coupon.getId());
     }
 
     public Coupon getOneCoupon(int couponId) throws CouponException {
@@ -114,9 +113,7 @@ public class CompanyService extends ClientService {
     }
 
     public Company getCompanyDetails() {
-        Company company=companyRepository.getOne(companyId);
-        //company.setCoupons( getCompanyCoupons());
-        return company;
+        return companyRepository.getOne(companyId);
     }
 
 

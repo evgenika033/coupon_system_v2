@@ -18,13 +18,12 @@ import java.util.List;
 @Scope("prototype")
 public class AdminService extends ClientService {
 
-    private final String email = "admin@admin.com";
-    private final String password = "admin";
-
 
     @Override
     public boolean login(String email, String password) throws LoginException {
-        if (email == this.email && password == this.password) {
+        final String email1 = "admin@admin.com";
+        final String password1 = "admin";
+        if (email == email1 && password == password1) {
             return true;
         }
         throw new LoginException("login exception: login failed");

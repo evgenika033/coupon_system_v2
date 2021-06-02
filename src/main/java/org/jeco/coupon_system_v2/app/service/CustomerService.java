@@ -1,6 +1,7 @@
 package org.jeco.coupon_system_v2.app.service;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.jeco.coupon_system_v2.app.beans.Category;
 import org.jeco.coupon_system_v2.app.beans.Coupon;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @Service
 @Scope("prototype")
