@@ -65,7 +65,6 @@ public class CompanyTest implements CommandLineRunner {
         TestUtils.testSecondaryEnd();
 
         // add coupon success
-        //TODO need check companyID before hagasha
         TestUtils.testSecondaryInfo("add coupon success");
         System.out.println("\r\nget all coupons");
         companyService.getCompanyCoupons().forEach(System.out::println);
