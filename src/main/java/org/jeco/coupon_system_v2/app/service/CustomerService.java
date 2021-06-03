@@ -40,6 +40,10 @@ public class CustomerService extends ClientService {
         if(coupon.getEndDate().isBefore(LocalDate.now())){
             throw new CustomerException("purchase coupon exception: coupon end date is over.");
         }
+        if (couponRepository.getPurchaseCouponByCouponIDAndCustomerID(coupon.getId(), customerID)>0) {
+            throw new CustomerException("purchase coupon exception: coupon is already porches");
+
+        }
         couponRepository.addPurchaseCoupon(customerID, coupon.getId());
     }
 

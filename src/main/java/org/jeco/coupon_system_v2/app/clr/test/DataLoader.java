@@ -23,7 +23,8 @@ public class DataLoader implements CommandLineRunner {
     private final CustomerRepository customerRepository;
     @Override
     public void run(String... args) {
-        //add company
+        System.out.println("\r\n*********\r\ndata load\r\n*********\r\n");
+        //add companies to DB
         companyRepository.save(Company.builder().name("Amedei").email("Amedei@company.com").password("123456").build());
         companyRepository.save(Company.builder().name("Angel Bakeries").email("Angel.Bakeries@company.com").password("123456").build());
         companyRepository.save(Company.builder().name("Auricchio").email("Auricchio@company.com").password("123456").build());
@@ -80,7 +81,7 @@ public class DataLoader implements CommandLineRunner {
 //        companyRepository.save(Company.builder().name("Wimm-Bill-Dann Foods").email("Wimm-Bill-Dann.Foods@company.com").password("123456").build());
 //        companyRepository.save(Company.builder().name("Yehuda Matzos").email("Yehuda.Matzos@company.com").password("123456").build());
 
-        //load customer
+        //add customer to DB
         customerRepository.save(Customer.builder().firstName("Aaron").lastName("Ahl").email("aaron.ahl@customer.com").password("123456").build());
         customerRepository.save(Customer.builder().firstName("Adam").lastName("Absalom").email("adam.absalom@customer.com").password("123456").build());
         customerRepository.save(Customer.builder().firstName("Alexander").lastName("Amsler").email("alexander.amsler@customer.com").password("123456").build());
@@ -190,7 +191,7 @@ public class DataLoader implements CommandLineRunner {
 //        customerRepository.save(Customer.builder().firstName("William").lastName("Abrami").email("william.abrami@customer.com").password("123456").build());
 //        customerRepository.save(Customer.builder().firstName("Zachary").lastName("Alfandari").email("zachary.alfandari@customer.com").password("123456").build());
 
-        //add coupons
+        //add coupons to DB
 
         couponRepository.save(Coupon.builder().company(1).category(Category.ACCESSORIES).title("accessories1").description("accessories1").startDate(LocalDate.of(2020,8,1)).endDate(LocalDate.of(2020,8,1)).amount(10).price(50).image("image").build());
         couponRepository.save(Coupon.builder().company(1).category(Category.ACCESSORIES).title("accessories2").description("accessories2").startDate(LocalDate.of(2020,8,1)).endDate(LocalDate.of(2020,8,1)).amount(10).price(60).image("image").build());

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@Order(4)
+@Order(5)
 public class CustomerTest implements CommandLineRunner {
 
     private final LoginManager loginManager;
@@ -39,15 +39,16 @@ public class CustomerTest implements CommandLineRunner {
         TestUtils.testSecondaryEnd();
 
 
-        //add purchase coupon
-        TestUtils.testSecondaryInfo("add purchase coupon");
+        //add purchase coupon good
+        TestUtils.testSecondaryInfo("add purchase coupon good");
         System.out.println("\r\nget all purchase coupons");
         customerService.getCustomerCoupons().forEach(System.out::println);
         System.out.println("\r\nadd purchase coupon");
         try {
-            Coupon coupon=couponRepository.getOne(1);
+            Coupon coupon=couponRepository.getOne(18);
         customerService.addPurchaseCoupon(coupon);
-            customerService.addPurchaseCoupon(couponRepository.getOne(2));
+            customerService.addPurchaseCoupon(couponRepository.getOne(19));
+            customerService.addPurchaseCoupon(couponRepository.getOne(42));
             }
         catch (Exception e){
             System.out.println(e);
@@ -56,38 +57,39 @@ public class CustomerTest implements CommandLineRunner {
         customerService.getCustomerCoupons().forEach(System.out::println);
         TestUtils.testSecondaryEnd();
 
+        //add purchase coupon bad
+        TestUtils.testSecondaryInfo("add purchase coupon bad");
+        System.out.println("\r\nget all purchase coupons");
+        customerService.getCustomerCoupons().forEach(System.out::println);
+        System.out.println("\r\nadd purchase coupon");
+        try {
+           // Coupon coupon=couponRepository.getOne(19);
+           // customerService.addPurchaseCoupon(coupon);
+            customerService.addPurchaseCoupon(couponRepository.getOne(19));
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        System.out.println("get all purchase coupons");
+        customerService.getCustomerCoupons().forEach(System.out::println);
+        TestUtils.testSecondaryEnd();
 
-        System.out.println("get all customer coupon by category");
+        //get all customer coupon by category
+        TestUtils.testSecondaryInfo("get all customer coupon by category");
         customerService.getCustomerCoupons(Category.BABY).forEach(System.out::println);
+        TestUtils.testSecondaryEnd();
 
-        System.out.println("get all customer coupon by maxPrice");
-        customerService.getCustomerCoupons(13).forEach(System.out::println);
+        //get all customer coupon by maxPrice
+        TestUtils.testSecondaryInfo("get all customer coupon by maxPrice");
+        customerService.getCustomerCoupons(18).forEach(System.out::println);
+        TestUtils.testSecondaryEnd();
 
-//
-//
-//        TestUtils.testSecondaryInfo("add coupon bad");
-//        System.out.println("\r\nget all coupons");
-//        companyService.getCompanyCoupons().forEach(System.out::println);
-//        System.out.println("\r\nadd coupon");
-//        try {
-//            companyService.addCoupon(Coupon.builder()
-//                    .company(1)
-//                    .category(Category.AUTOMOTIVE)
-//                    .description("description")
-//                    .startDate(LocalDate.of(2021, 01, 01))
-//                    .endDate(LocalDate.of(2021, 02, 01))
-//                    .amount(5)
-//                    .price(12.5)
-//                    .image("image")
-//                    .build());
-//
-//
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        System.out.println("\r\nget all coupons");
-//        companyService.getCompanyCoupons().forEach(System.out::println);
-//        TestUtils.testSecondaryEnd();
+        //get customer details
+        TestUtils.testSecondaryInfo("get customer details");
+        System.out.println( customerService.getCustomerDetails());
+        TestUtils.testSecondaryEnd();
+
+
 
     }
 }

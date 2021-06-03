@@ -7,21 +7,29 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+
 @Transactional
-public interface CouponRepository extends JpaRepository<Coupon,Integer> {
-    List<Coupon>findByCompany(int company);
+public interface CouponRepository extends JpaRepository<Coupon, Integer> {
+    List<Coupon> findByCompany(int company);
+
     void deleteByCompany(int company);
-    List<Coupon>findByCompanyAndCategory(int company, Category category);
-    List<Coupon>findByCompanyAndPriceLessThan(int company,double price);
 
+    List<Coupon> findByCompanyAndCategory(int company, Category category);
 
+    List<Coupon> findByCompanyAndPriceLessThan(int company, double price);
+
+    List<Coupon> findCouponsByEndDateLessThan(LocalDate endDate);
+
+    int countCouponsByEndDateLessThan(LocalDate endDate);
 
 
     boolean existsByTitle(String title);
 
     /**
      * for check existing company coupons with the same title and other id
+     *
      * @param company
      * @param title
      * @param id
@@ -30,9 +38,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     boolean existsByCompanyAndTitleAndIdIsNot(int company, String title, int id);
 
 
-
     /**
      * get list Coupons id by customerID from purchaseCoupons
+     *
      * @param customerID
      * @return
      */
@@ -41,6 +49,7 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
 
     /**
      * get list Customers id by couponID from purchaseCoupons
+     *
      * @param couponID
      * @return
      */
@@ -48,22 +57,34 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     List<Integer> getPurchaseCouponByCouponID(int couponID);
 
     /**
+     * check existing purchase coupon by customer for prevent double purchase
+     *
+     * @param couponID
+     * @param customerID
+     * @return
+     */
+    @Query(value = "select count(*) from customers_coupons where `coupons_id` = :couponID and `customers_id`= :customerID", nativeQuery = true)
+    int getPurchaseCouponByCouponIDAndCustomerID(int couponID, int customerID);
+
+    /**
      * delete purchase coupon
+     *
      * @param customerID
      * @param couponID
      */
-    @Query(value="DELETE FROM `customers_coupons` WHERE `customers_id`= :customerID and `coupons_id` = :couponID", nativeQuery = true)
+    @Query(value = "DELETE FROM `customers_coupons` WHERE `customers_id`= :customerID and `coupons_id` = :couponID", nativeQuery = true)
     @Modifying
     void deletePurchaseCoupon(int customerID, int couponID);
 
     /**
      * add purchase coupon
+     *
      * @param customerID
      * @param couponID
      */
-    @Query(value="INSERT INTO `customers_coupons` (`customers_id`,`coupons_id`)VALUES(:customerID, :couponID)", nativeQuery = true)
+    @Query(value = "INSERT INTO `customers_coupons` (`customers_id`,`coupons_id`)VALUES(:customerID, :couponID)", nativeQuery = true)
     @Modifying
-    void addPurchaseCoupon(int customerID,int couponID);
+    void addPurchaseCoupon(int customerID, int couponID);
 
     @Query(value = "select * from `coupons` as c join `customers_coupons` as cc on c.id=cc.coupons_id where cc.customers_id=:customerID and c.category_id=:categoryID", nativeQuery = true)
     List<Coupon> getCustomerCoupons(int categoryID, int customerID);

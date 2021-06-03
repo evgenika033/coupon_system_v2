@@ -9,7 +9,6 @@ import org.jeco.coupon_system_v2.app.beans.Coupon;
 import org.jeco.coupon_system_v2.app.exception.CouponException;
 import org.jeco.coupon_system_v2.app.exception.LoginException;
 import org.springframework.context.annotation.Scope;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,8 +86,8 @@ public class CompanyService extends ClientService {
             deleteCouponHistory(couponID);
             //delete coupon
             couponRepository.deleteById(couponID);
-        }catch (EmptyResultDataAccessException e){
-            throw new CouponException("delete coupon exception: coupon id not found");
+        }catch (Exception e){
+            throw new CouponException("delete coupon exception: coupon id not found."+e);
         }
 
     }

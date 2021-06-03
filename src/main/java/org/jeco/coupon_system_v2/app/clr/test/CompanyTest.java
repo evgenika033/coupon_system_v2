@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
-@Order(3)
+@Order(4)
 public class CompanyTest implements CommandLineRunner {
 
     private final LoginManager loginManager;
