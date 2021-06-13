@@ -233,7 +233,11 @@ public class DataLoader implements CommandLineRunner {
         couponRepository.save(Coupon.builder().company(15).category(Category.FOOD).title("food6").description("food6").startDate(LocalDate.of(2020,8,1)).endDate(LocalDate.of(2021,8,1)).amount(10).price(12.5).image("image").build());
         couponRepository.save(Coupon.builder().company(15).category(Category.FOOD).title("food7").description("food7").startDate(LocalDate.of(2020,8,1)).endDate(LocalDate.of(2021,8,1)).amount(10).price(13).image("image").build());
 
-
+//        couponRepository.findAll().forEach(coupon -> {
+//            if(!companyRepository.existsById(coupon.getCompany())){
+//                couponRepository.delete(coupon);
+//            }
+//        });
 
     }
 }
